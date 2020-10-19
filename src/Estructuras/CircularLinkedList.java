@@ -100,8 +100,7 @@ public class CircularLinkedList<T> implements ListADT<T>{
     }
 
     public boolean isEmpty() {
-        if (last==null){return(true);}
-        else {return false;}
+        return (last==null);
     }
 
     public int size() {
