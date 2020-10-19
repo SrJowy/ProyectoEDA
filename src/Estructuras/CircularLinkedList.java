@@ -7,6 +7,7 @@ import Interfaces.ListADT;
 public class CircularLinkedList<T> implements ListADT<T>{
 
         protected Node<T> last;
+        
         protected String descr;
         protected int count;
 
