@@ -13,15 +13,24 @@ public class UnorderedCircularLinkedList<T> extends CircularLinkedList<T> implem
 	@Override
 	public void addToFront(T elem) {
 		Node<T> nodo = new Node<T>(elem);
-		nodo.next = last.next.next;
+		if (last != null) {
+			nodo.next = last.next.next;
+		} else {
+			last = nodo;	
+		}
 		last.next = nodo;
+		
 	}
 
 	@Override
 	public void addToRear(T elem) {
 		Node <T> nodo = new Node<T>(elem);
-		nodo.next = last.next;
-		last.next = nodo;
+		if (last != null) {
+			nodo.next = last.next;
+			last.next = nodo;
+		} else {
+			nodo.next = nodo;
+		}
 		last = nodo;
 	}
 
