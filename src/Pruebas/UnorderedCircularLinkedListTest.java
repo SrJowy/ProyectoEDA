@@ -1,6 +1,7 @@
 package Pruebas;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.Test;
 
@@ -24,5 +25,18 @@ public class UnorderedCircularLinkedListTest {
         assertEquals("primero",lista.first());
         lista.addToRear("segundo");
         assertEquals("primero",lista.first());
+        assertEquals("segundo",lista.last());
+    }
+
+    @Test
+    public void addAfterTest() {
+        UnorderedCircularLinkedList <String> lista = new UnorderedCircularLinkedList<>("lista");
+        lista.addToFront("primero");
+        lista.addAfter("segundo", "primero");
+        assertEquals("segundo", lista.last());
+        assertEquals("primero", lista.first());
+        lista.addAfter("tercero", "primero");
+        assertNotEquals("tercero", lista.first());
+        assertNotEquals("tercero",lista.last());
     }
 }
