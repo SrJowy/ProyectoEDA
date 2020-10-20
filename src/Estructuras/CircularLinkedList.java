@@ -7,7 +7,6 @@ import Interfaces.ListADT;
 public class CircularLinkedList<T> implements ListADT<T>{
 
         protected Node<T> last;
-        
         protected String descr;
         protected int count;
 
@@ -59,6 +58,7 @@ public class CircularLinkedList<T> implements ListADT<T>{
            ant.next = last.next;
            n = last;
            last = ant;
+           count--;
            return n.data;
         } else {
             return null;
@@ -96,6 +96,9 @@ public class CircularLinkedList<T> implements ListADT<T>{
                 enc = true;
             }
         }
+        if (!enc) {
+            data = null;
+        }
         return data;
     }
 
@@ -117,5 +120,10 @@ public class CircularLinkedList<T> implements ListADT<T>{
             itr = new LinkedIterator<>(last.next,count);
         }
         return itr;
+    }
+
+    public void limpiarLista() {
+        last = null;
+        count = 0;
     }
 }

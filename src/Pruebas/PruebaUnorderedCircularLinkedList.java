@@ -20,50 +20,116 @@ public class PruebaUnorderedCircularLinkedList {
     public static void main(String[] args)  {
 		
 		UnorderedCircularLinkedList<Integer> l = new UnorderedCircularLinkedList<>("lista");
-		l.addToRear(1);
-		l.addToRear(3);
-		l.addToRear(6);
-		l.addToRear(7);
-		l.addToRear(9);
-		l.addToRear(0);
-        l.addToRear(20);
-        l.addToFront(8);
-		
+        pruebaAddToRear(l);
+        pruebaAddToFront(l);
+        pruebaAddAfter(l);
+        pruebaRemoveFirst(l);
+        pruebaRemoveLast(l);
+        pruebaSize(l);
+        pruebaContains(l);
+        pruebaFind(l);
+    }
 
-		
-        System.out.print(" Lista ......................");
-		visualizarNodos(l);
-		System.out.println(" Num elementos: " + l.size());
-				
-		
-		System.out.println("Prueba Find ...............");
-		System.out.println("9? " + l.find(9));
-		System.out.println("0? " + l.find(0));
-        System.out.println("7? " + l.find(7));
-        
-        System.out.println("Prueba Contains ...........");
-        System.out.println("8? " + l.contains(8));
-        System.out.println("20? " + l.contains(20));
-        System.out.println("7? " + l.contains(7));
-        System.out.println("23? " + l.contains(23));
+    public static void pruebaAddToRear(UnorderedCircularLinkedList<Integer> l) {
+        System.out.println("************ Prueba addToRear ************");
+        l.addToRear(1);
+        l.addToRear(2);
+        l.addToRear(3);
+        visualizarNodos(l);
+    }
 
-        System.out.println("Prueba RemoveLast .........");
+    public static void pruebaAddToFront(UnorderedCircularLinkedList<Integer> l) {
+        System.out.println("************ Prueba addToFront ************");
+        l.limpiarLista();
+        l.addToFront(1);
+        l.addToFront(2);
+        l.addToFront(3);
+        visualizarNodos(l);
+    }
+
+    public static void pruebaAddAfter(UnorderedCircularLinkedList<Integer> l) {
+        System.out.println("************ Prueba addAfter ************");
+        l.limpiarLista();
+        l.addToFront(1);
+        l.addAfter(3, 1);
+        visualizarNodos(l);
+        l.addAfter(2, 1);
+        visualizarNodos(l);
+    }
+
+    public static void pruebaRemoveFirst(UnorderedCircularLinkedList<Integer> l) {
+        System.out.println("************ Prueba removeFirst ************");
+        l.limpiarLista();
+        l.addToFront(1);
+        visualizarNodos(l);
+        l.removeFirst();
+        visualizarNodos(l);
+        l.addToFront(1);
+        l.addToFront(2);
+        visualizarNodos(l);
+        l.removeFirst();
+        visualizarNodos(l);
+    }
+
+    public static void pruebaRemoveLast(UnorderedCircularLinkedList<Integer> l) {
+        System.out.println("************ Prueba removeLast ************");
+        l.limpiarLista();
+        l.addToFront(1);
+        visualizarNodos(l);
+        l.removeFirst();
+        visualizarNodos(l);
+        l.addToFront(1);
+        l.addToFront(2);
+        visualizarNodos(l);
         l.removeLast();
         visualizarNodos(l);
-        UnorderedCircularLinkedList<Integer> l2 = new UnorderedCircularLinkedList<>("lista2");
-        l2.addToFront(4);
-        visualizarNodos(l2);
-        l2.removeLast();
-        visualizarNodos(l2);
-        l2.addToRear(2);
-        l2.addToRear(3);
-        l2.addToRear(4);
-        visualizarNodos(l2);
-        l2.removeLast();
-        visualizarNodos(l2);
-
-        System.out.println("Prueba RemoveFirst ........");
-        
     }
+
+    public static void pruebaSize(UnorderedCircularLinkedList<Integer> l) {
+        System.out.println("************ Prueba size ************");
+        l.limpiarLista();
+        l.addToFront(1);
+        l.addToFront(2);
+        visualizarNodos(l);
+        System.out.println("Size: " + l.size());
+        l.addToRear(3);
+        visualizarNodos(l);
+        System.out.println("Size: " + l.size());
+        l.removeFirst();
+        visualizarNodos(l);
+        System.out.println("Size: " + l.size());
+        l.removeLast();
+        visualizarNodos(l);
+        System.out.println("Size: " + l.size());   
+    }
+
+    public static void pruebaContains(UnorderedCircularLinkedList<Integer> l) {
+        System.out.println("************ Prueba contains ************");
+        l.limpiarLista();
+        l.addToFront(1);
+        visualizarNodos(l);
+        System.out.println("1? - " + l.contains(1));
+        l.addToFront(2);
+        l.addToRear(3);
+        visualizarNodos(l);
+        System.out.println("3? - " + l.contains(3));
+        System.out.println("4? - " + l.contains(4));
+    }
+
+    public static void pruebaFind(UnorderedCircularLinkedList<Integer> l) {
+        System.out.println("************ Prueba find ************");
+        l.limpiarLista();
+        l.addToFront(1);
+        visualizarNodos(l);
+        System.out.println("1? - " + l.find(1));
+        l.addToFront(2);
+        l.addToRear(3);
+        visualizarNodos(l);
+        System.out.println("1? - " + l.find(1));
+        System.out.println("3? - " + l.find(3));
+        System.out.println("4? - " + l.find(4));
+    }
+
+
 
 }
