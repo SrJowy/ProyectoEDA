@@ -79,7 +79,7 @@ public class CircularLinkedList<T> implements ListADT<T>{
         Iterator<T> itr = this.iterator();
         while (itr.hasNext() && !enc){
             data = itr.next();
-            if (data.equals(elem)) { //hay que utilizar el compare
+            if (data.equals(elem)) {
                 enc = true;
             }
         }
@@ -108,7 +108,14 @@ public class CircularLinkedList<T> implements ListADT<T>{
     }
 
     public Iterator<T> iterator() { 
-        LinkedIterator<T> itr = new LinkedIterator<>(last, last.next);
+        LinkedIterator<T> itr;
+        if (last == null) {
+            itr = new LinkedIterator<>(null,count);
+        } else if (last.next == null) {
+            itr = new LinkedIterator<>(null,count);
+        } else {
+            itr = new LinkedIterator<>(last.next,count);
+        }
         return itr;
     }
 }

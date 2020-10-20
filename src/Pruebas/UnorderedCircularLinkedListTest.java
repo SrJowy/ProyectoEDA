@@ -39,4 +39,11 @@ public class UnorderedCircularLinkedListTest {
         assertNotEquals("tercero", lista.first());
         assertNotEquals("tercero",lista.last());
     }
+
+    public void removeFirstTest() {
+        UnorderedCircularLinkedList <String> lista = new UnorderedCircularLinkedList<>("lista");
+        lista.addToFront("primero");
+        lista.addToFront("segundo");
+        
+    }
 }

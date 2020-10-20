@@ -3,22 +3,30 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class LinkedIterator<T> implements Iterator<T> {
+    private Node<T> first;
     private Node<T> act;
-    private Node<T> last;
+    private boolean inic;
+    private int count;
 
-    LinkedIterator(Node<T> pLast, Node<T> pFirst){
+    LinkedIterator(Node<T> pFirst, int pCount){
+        first = pFirst;
         act = pFirst;
-        last = pLast;
+        inic = true;
+        count = pCount;
     }
     public boolean hasNext() {
-       return (act != last);
+       if (count == 0 || (act == first && !inic)) {
+           return false;
+       }
+       return true;
     }
 
     public T next(){
-        if (!this.hasNext()){
+        if (!hasNext()){
             throw new NoSuchElementException();
         }
-        T result = this.act.data;
+        T result = act.data;
+        inic = false;
         act = act.next;
         return result;
     }
