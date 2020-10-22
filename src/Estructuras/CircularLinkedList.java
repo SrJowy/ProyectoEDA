@@ -112,9 +112,7 @@ public class CircularLinkedList<T> implements ListADT<T>{
 
     public Iterator<T> iterator() { 
         LinkedIterator<T> itr;
-        if (last == null) {
-            itr = new LinkedIterator<>(null,count);
-        } else if (last.next == null) {
+        if (last == null || last.next == null) {
             itr = new LinkedIterator<>(null,count);
         } else {
             itr = new LinkedIterator<>(last.next,count);

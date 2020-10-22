@@ -1,6 +1,6 @@
 package Pruebas;
 
-import static org.junit.Assert.assertEquals;
+/*import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.Test;
@@ -46,4 +46,4 @@ public class UnorderedCircularLinkedListTest {
         lista.addToFront("segundo");
         
     }
-}
+}*/
