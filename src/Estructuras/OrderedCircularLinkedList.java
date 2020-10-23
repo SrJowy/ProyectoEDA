@@ -9,23 +9,37 @@ public class OrderedCircularLinkedList<T extends Comparable<T>> extends Circular
     @Override
     public void add(T elem) {
         Node <T> nuevo = new Node<T>(elem);
-        Node <T> act = last.next;
-        Node <T> ant = last;
-        boolean inic = true;
-
-        while (act != last.next || inic) {
-            inic = false;
-            if (act.data.compareTo(nuevo.data) > 0) {
-                if (ant.next == last.next) {
-                    last = nuevo;
-                }
-                nuevo.next = act;
-                ant.next = nuevo;
+        if (last == null) { //No hay elementos en la lista
+            last = nuevo;
+            last.next = nuevo;
+            count++;
+        } else {
+            if (last.next.data.compareTo(nuevo.data) > 0) { //El valor es menor que el contenido en primer lugar en la lista
+                nuevo.next = last.next;
+                last.next = nuevo;
                 count++;
+            } else {
+                Node <T> act = last.next;
+                Node <T> ant = last;
+                boolean inic = true;
+                while ((act.data.compareTo(nuevo.data) < 0) && (act != last.next || inic)) { //buscamos la posisicón a insertar
+                    inic = false;
+                    ant = act;
+                    act = act.next;
+                }
+                if (act.data.compareTo(nuevo.data) < 0) { //El valor sigue siendo mayor, hay que insertar en última posición
+                    nuevo.next = act;
+                    ant.next = nuevo;
+                    last = nuevo;
+                    count++;
+                } else { //El valor a insertar es menor que el valor de act, lo insertamos previamente a act
+                    nuevo.next = act;
+                    ant.next = nuevo;
+                    count++;
+                }
             }
-            ant = act;
-            act = act.next;
-        } 
+        }
+        
     }
 
     @Override
