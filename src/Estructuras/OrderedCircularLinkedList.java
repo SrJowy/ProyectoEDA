@@ -46,13 +46,19 @@ public class OrderedCircularLinkedList<T extends Comparable<T>> extends Circular
     public void merge(OrderedCircularLinkedList<T> lista) {
         Node <T> act = lista.last.next;
         boolean inic = true;
-        if(lista.last != null) {
-            while (act == lista.last.next || inic) {
-                inic = false;
-                this.add(act.data);
-                act = act.next;
+        if (last == null) {
+            last = lista.last;
+        } else {
+            if(lista.last != null) {
+                while (act != lista.last.next || inic) {
+                    inic = false;
+                    this.add(act.data);
+                    act = act.next;
+                }
             }
         }
+        System.out.println(last.next.data);
+        
     }
 
     

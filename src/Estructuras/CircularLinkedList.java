@@ -124,4 +124,15 @@ public class CircularLinkedList<T> implements ListADT<T>{
         last = null;
         count = 0;
     }
+
+    public void visualizarNodos() {
+        Iterator <T> itr = this.iterator();
+        System.out.println();
+        System.out.println("[");
+        while (itr.hasNext()) {
+            T valor = itr.next();
+            System.out.println(valor);
+        }
+        System.out.println("]");
+    }
 }
