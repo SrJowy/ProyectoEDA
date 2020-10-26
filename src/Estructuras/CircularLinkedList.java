@@ -65,6 +65,31 @@ public class CircularLinkedList<T> implements ListADT<T>{
         }
     }
 
+    @Override
+    public T remove(T elem) {
+        T elemEliminar = null;
+        Node <T> act = last.next;
+        Node <T> ant = last;
+
+        while (act != last) {
+            if (act.data.equals(elem)) {
+                elemEliminar = act.data;
+                ant.next = act.next;
+            }
+            ant = act;
+            act = act.next;
+        }
+        if (elemEliminar == null) {
+            if (act.data.equals(elem)) {
+                last = ant;
+                ant.next = act.next;
+            }
+        }
+    
+        return elemEliminar;
+
+    }
+
     public T first() {
         return (last.next.data);
     }
@@ -135,4 +160,6 @@ public class CircularLinkedList<T> implements ListADT<T>{
         }
         System.out.println("]");
     }
+
+    
 }

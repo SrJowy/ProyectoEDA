@@ -6,6 +6,7 @@ public interface ListADT<T> {
     public String getDescr();
     public T removeFirst();
     public T removeLast();
+    public T remove(T elem);
     public T first();
     public T last();
     public boolean contains(T elem);

@@ -12,6 +12,7 @@ public class PruebaUnorderedCircularLinkedList {
         pruebaAddAfter(l);
         pruebaRemoveFirst(l);
         pruebaRemoveLast(l);
+        pruebaRemove(l);
         pruebaSize(l);
         pruebaContains(l);
         pruebaFind(l);
@@ -69,6 +70,23 @@ public class PruebaUnorderedCircularLinkedList {
         l.addToFront(2);
         l.visualizarNodos();
         l.removeLast();
+        l.visualizarNodos();
+    }
+
+    public static void pruebaRemove(UnorderedCircularLinkedList<Integer> l) {
+        System.out.println("************ Prueba remove ************");
+        l.limpiarLista();
+        l.addToFront(1);
+        l.addToFront(2);
+        l.addToFront(14);
+        l.addToFront(74);
+        l.addToFront(7);
+        l.visualizarNodos();
+        l.remove(1);
+        l.visualizarNodos();
+        l.remove(14);
+        l.visualizarNodos();
+        l.remove(7);
         l.visualizarNodos();
     }
 
