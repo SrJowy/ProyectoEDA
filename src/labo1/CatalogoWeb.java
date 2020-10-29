@@ -4,11 +4,11 @@ import java.io.*;
 import java.util.*;
 
 public class CatalogoWeb {
-    private HashMap<String, Web> l;
+    private MapaWebs l;
     private static CatalogoWeb miCatalogoWeb = null;
 
     private CatalogoWeb() {
-        this.l = new HashMap<>();
+        this.l = new MapaWebs();
     }
 
     public static CatalogoWeb getCatalogoWeb() {
@@ -25,38 +25,41 @@ public class CatalogoWeb {
         String archivoArc = "pld-arcs-1-N.txt";
 
         try{
-            Scanner entrada1 = new Scanner(new FileReader(archivoIndex));
-            Scanner entrada2 = new Scanner(new FileReader(archivoArc));
-
-            String lineaIndex,lineaArc;
-            Web w;
-            int index;
-
-            while (entrada1.hasNext()) {
-                lineaIndex = entrada1.nextLine();
-                String[] datos = lineaIndex.split(" ");
-                w = new Web(Integer.parseInt(datos[1]),datos[0]);
-                this.l.anadirWeb(datos[0], w);
-                this.anadirAPalabra(datos[0], this.l.getWebLink(datos[0]));
-            }
-
-            while (entrada2.hasNext()) {
-                lineaArc = entrada2.nextLine();
-                String[] packWeb = lineaArc.split(" ");
-                index = Integer.parseInt(packWeb[0]);
-                Web w1 = this.mWebs.get(packWeb[0]);
-                
-                for(int i = 2; i < packWeb.length; i++) {
-                    w1.anadirAListaWebs(this.l.getWebIndice(Integer.parseInt(packWeb[i])));
-                }
-            }
-
+            cargaIndex(archivoIndex);
+            cargarArc(archivoArc);
         } catch (IOException e) {e.printStackTrace();}
+    }
+
+    public void cargaIndex(String s) throws IOException {
+        Scanner entrada = new Scanner(new FileReader(s));
+        String linea;
+        Web w;
+        while (entrada.hasNext()) {
+            linea = entrada.nextLine();
+            String[] datos = linea.split(" ");
+            w = new Web(Integer.parseInt(datos[1]),datos[0]);
+            this.l.anadirWeb(datos[0], w);
+            this.anadirAPalabra(datos[0], this.l.getWebLink(datos[0]));
+        }
+    }
+
+    public void cargarArc(String s) throws IOException{
+        Scanner entrada = new Scanner(new FileReader(s));
+        String linea;
+        while (entrada.hasNext()) {
+            linea = entrada.nextLine();
+            String[] packWeb = linea.split(" ");
+            Web w = this.l.getWebLink(packWeb[0]);
+            
+            for(int i = 2; i < packWeb.length; i++) {
+                w.anadirAListaWebs(this.l.getWebIndice(Integer.parseInt(packWeb[i])));
+            }
+        }
     }
 
     private void anadirAPalabra(String pLink, Web pWeb) {
         int inic, fin;
-        String subCadena = " ";
+        String subCadena = "";
         int cont = 3;
         while (!subCadena.equals(pLink)) {
             inic = 0;
@@ -64,7 +67,7 @@ public class CatalogoWeb {
             while(pLink.length() >= fin) {
                 subCadena = pLink.substring(inic, fin);
                 if (CatalogoPalabras.getCatalogoPalabras().contains(subCadena)) {
-                    this.l.getWebLink(pLink).anadirAListaPalabras(subCadena,CatalogoPalabras.getCatalogoPalabras().getPalabra(subCadena));
+                    this.l.getWebLink(pLink).anadirAListaPalabras(CatalogoPalabras.getCatalogoPalabras().getPalabra(subCadena));
                     CatalogoPalabras.getCatalogoPalabras().anadirWeb(subCadena, pWeb);
                 }
                 fin++;
@@ -104,22 +107,22 @@ public class CatalogoWeb {
             Web w = this.l.getWebLink(s);
             ListaPalabras lP = this.l.getWebLink(s).getListaPalabras();
             this.l.borrarWeb(s, w);
-            this.l.eliminarDeListaEnlazadas(s,w);
+            this.l.eliminarDeListaEnlazadas(w);
             lP.borrarPalabras(w);
         }
     }
 
-    public ListaWebs webOrdenada() {
+    public MapaWebs webOrdenada() {
         //post: devuelve una copia ArrayList de webs ordenado por MergeSort
         ListaWebs lWebs = new ListaWebs();
 
         for (int i = 0; i < this.l.getTamaino(); i++) { //copiamos la lista
-            lWebs.anadirWeb(this.l.getWebIndice(i).getLink(), this.l.getWebIndice(i));
+            lWebs.anadirWeb(this.l.getWebIndice(i));
         }
         return mergeSort(this.l);
     }
 
-    private void mezcla(ListaWebs izq, ListaWebs der, ListaWebs l) {
+    private void mezcla(MapaWebs izq, MapaWebs der, MapaWebs l) {
         int izqInd = 0;
         int derInd = 0;
         int lInd = 0;
@@ -135,7 +138,7 @@ public class CatalogoWeb {
             lInd++;
         }
  
-        ListaWebs resto;
+        MapaWebs resto;
         int restoInd;
         if (izqInd >= izq.getTamaino()) {
             resto = der;
@@ -150,10 +153,10 @@ public class CatalogoWeb {
         }
     }
 
-    private ListaWebs mergeSort(ListaWebs l) {
+    private MapaWebs mergeSort(MapaWebs l) {
        
-        ListaWebs izq = new ListaWebs();
-        ListaWebs der = new ListaWebs();
+        MapaWebs izq = new MapaWebs();
+        MapaWebs der = new MapaWebs();
         int cent;
         if (l.getTamaino() == 1) {
             return l;

@@ -86,6 +86,7 @@ public class Menu {
                     System.out.println("Introduce una palabra");
                     url = reader.next();
                     UnorderedCircularLinkedList<Web> lW = CatalogoPalabras.getCatalogoPalabras().word2Webs(url);
+                    lW.visualizarNodos();
                     break;
                 }
 
@@ -109,8 +110,8 @@ public class Menu {
 
                 case 8: {
                     System.out.println("");
-                    ListaWebs lW = CatalogoWeb.getCatalogoWeb().webOrdenada();
-                    this.imprimirLista(lW);
+                    CatalogoWeb.getCatalogoWeb().webOrdenada();
+                    System.out.println("Se ha ordenado correctamente");
                     break;
                 }
 

@@ -22,7 +22,7 @@ public class Web {
     }
 
     public void anadirAListaWebs(Web pWeb) {
-        this.lW.anadirWeb(pWeb.link, pWeb);
+        this.lW.anadirWeb(pWeb);
     }
 
     public String getLink() {
@@ -37,11 +37,11 @@ public class Web {
         this.index = i;
     }
 
-    public void anadirAListaPalabras(String pPalabraS, Palabra pPalabraO) {
-        this.lP.anadirALista(pPalabraS, pPalabraO);
+    public void anadirAListaPalabras(Palabra pPalabraO) {
+        this.lP.anadirALista(pPalabraO);
     }
 
-    public void borrarDeListaEnlazadas(String s, Web pWeb) {
-        this.lW.borrarWeb(s, pWeb);
+    public void borrarDeListaEnlazadas(Web pWeb) {
+        this.lW.borrarWeb(pWeb);
     }
 }
