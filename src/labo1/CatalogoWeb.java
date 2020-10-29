@@ -4,11 +4,11 @@ import java.io.*;
 import java.util.*;
 
 public class CatalogoWeb {
-    private ListaWebs l;
+    private HashMap<String, Web> l;
     private static CatalogoWeb miCatalogoWeb = null;
 
     private CatalogoWeb() {
-        this.l = new ListaWebs();
+        this.l = new HashMap<>();
     }
 
     public static CatalogoWeb getCatalogoWeb() {
@@ -44,7 +44,7 @@ public class CatalogoWeb {
                 lineaArc = entrada2.nextLine();
                 String[] packWeb = lineaArc.split(" ");
                 index = Integer.parseInt(packWeb[0]);
-                Web w1 = this.l.getWebIndice(index);
+                Web w1 = this.mWebs.get(packWeb[0]);
                 
                 for(int i = 2; i < packWeb.length; i++) {
                     w1.anadirAListaWebs(this.l.getWebIndice(Integer.parseInt(packWeb[i])));

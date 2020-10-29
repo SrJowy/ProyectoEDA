@@ -7,11 +7,11 @@ import java.util.*;
 import Estructuras.UnorderedCircularLinkedList;
 
 public class CatalogoPalabras {
-    private ListaPalabras lP;
+    private HashMap<String,Palabra> mPalabras;
     private static CatalogoPalabras miCatalogoPalabras = null;
 
     private CatalogoPalabras() {
-        this.lP = new ListaPalabras();
+        this.mPalabras = new HashMap<>();
     }
 
     public static CatalogoPalabras getCatalogoPalabras(){
@@ -34,28 +34,28 @@ public class CatalogoPalabras {
             while (entrada.hasNext()) {
                 linea = entrada.nextLine();
                 Palabra p = new Palabra(linea);
-                this.lP.anadirALista(linea, p);
+                this.mPalabras.put(linea, p);
             }
         } catch (IOException e) {e.printStackTrace();}
     }
 
     public boolean contains(String s) {
-        return this.lP.contains(s);
+        return this.mPalabras.containsKey(s);
     }
 
     public Palabra getPalabra(String pPalabra) {
-        return this.lP.getPalabra(pPalabra);
+        return this.mPalabras.get(pPalabra);
         
     }
 
     public void anadirWeb(String pPalabra, Web pWeb) {
-        this.lP.getPalabra(pPalabra).anadirWeb(pWeb);
+        this.getPalabra(pPalabra).anadirWeb(pWeb);
     }
 
     public UnorderedCircularLinkedList<Web> word2Webs(String s) {
         //post: si la palabra esta en la lista de palabras de CatalogoPalabras, devuelve su lista de Webs
-        if (this.lP.contains(s)) {
-            return this.lP.getPalabra(s).getListaWebs();
+        if (this.contains(s)) {
+            return this.getPalabra(s).getListaWebs();
         } else {
             return null;
         }
