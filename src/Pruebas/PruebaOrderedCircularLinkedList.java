@@ -17,6 +17,7 @@ public class PruebaOrderedCircularLinkedList {
         pruebaMergePersona(l2, l4);
         pruebaRemoveFirst(l1);
         pruebaRemoveLast(l1);
+        pruebaRemove(l1);
         pruebaSize(l1);
         pruebaContains(l1);
         pruebaFind(l1);
@@ -49,7 +50,17 @@ public class PruebaOrderedCircularLinkedList {
     }
 
     public static void pruebaMergeInteger(OrderedCircularLinkedList <Integer> l1, OrderedCircularLinkedList <Integer> l2) {
+        l1.limpiarLista();
+        l2.limpiarLista();
         System.out.println("************ Prueba MergeInteger ************");
+        System.out.println();
+        System.out.println("Las dos listas están vacías");
+        l1.merge(l2);
+        l1.visualizarNodos();
+        System.out.println("Número de elementos " + l1.size());
+        System.out.println();
+
+        System.out.println("La lista parámetro no está vacía pero la lista sí");
         l2.add(2);
         l2.add(8);
         l2.add(10);
@@ -62,14 +73,48 @@ public class PruebaOrderedCircularLinkedList {
         l1.merge(l2);
         l1.visualizarNodos();
         System.out.println("Número de elementos " + l1.size());
+
         l1.limpiarLista();
+        l2.limpiarLista();
+
+        System.out.println("La lista parámetro está vacía pero la lista no");
+        l1.add(1);
+        l1.add(0);
+        l1.add(4);
+        l1.visualizarNodos();
+        System.out.println("Número de elementos " + l1.size());
+        l2.visualizarNodos();
+        System.out.println("Número de elementos " + l2.size());
+        l1.merge(l2);
+        l1.visualizarNodos();
+        System.out.println("Número de elementos " + l1.size());
+        
+        l1.limpiarLista();
+        l2.limpiarLista();
+        
+        System.out.println("Ninguna de las dos listas están vacías");
+        l2.add(2);
+        l2.add(8);
+        l2.add(10);
+        l2.add(21);
+        l2.add(-1);
+        l1.add(1);
+        l1.add(0);
+        l1.add(4);
+        l1.visualizarNodos();
+        System.out.println("Número de elementos " + l1.size());
+        l2.visualizarNodos();
+        System.out.println("Número de elementos " + l2.size());
+        l1.merge(l2);
+        l1.visualizarNodos();
+        System.out.println("Número de elementos " + l1.size());
     }
 
     public static void pruebaMergePersona(OrderedCircularLinkedList <Persona> l1, OrderedCircularLinkedList <Persona> l2) {
         System.out.println("************ Prueba MergePersona ************");
-        l2.add(new Persona("juan", "99999"));
-        l2.add(new Persona("ander", "00000"));
-        l2.add(new Persona("maría", "44444"));
+        l2.add(new Persona("juan", "9999"));
+        l2.add(new Persona("ander", "6666"));
+        l2.add(new Persona("maría", "4444"));
         l1.visualizarNodos();
         System.out.println("Número de elementos " + l1.size());
         l2.visualizarNodos();
@@ -82,10 +127,18 @@ public class PruebaOrderedCircularLinkedList {
     public static void pruebaRemoveFirst(OrderedCircularLinkedList<Integer> l) {
         System.out.println("************ Prueba removeFirst ************");
         l.limpiarLista();
+        System.out.println();
+        System.out.println("Lista vacía");
+        l.removeFirst();
+        l.visualizarNodos();
+        System.out.println();
+        System.out.println("Lista de un solo nodo");
         l.add(1);
         l.visualizarNodos();
         l.removeFirst();
         l.visualizarNodos();
+        System.out.println();
+        System.out.println("Lista de varios nodos");
         l.add(1);
         l.add(2);
         l.visualizarNodos();
@@ -96,14 +149,57 @@ public class PruebaOrderedCircularLinkedList {
     public static void pruebaRemoveLast(OrderedCircularLinkedList<Integer> l) {
         System.out.println("************ Prueba removeLast ************");
         l.limpiarLista();
+        System.out.println();
+        System.out.println("Lista vacía");
+        l.removeLast();
+        l.visualizarNodos();
+        System.out.println();
+        System.out.println("Lista de un solo nodo");
         l.add(1);
         l.visualizarNodos();
-        l.removeFirst();
+        l.removeLast();
         l.visualizarNodos();
+        System.out.println();
+        System.out.println("Lista de varios nodos");
         l.add(1);
         l.add(2);
         l.visualizarNodos();
         l.removeLast();
+        l.visualizarNodos();
+    }
+
+    public static void pruebaRemove(OrderedCircularLinkedList<Integer> l) {
+        System.out.println("************ Prueba remove ************");
+        l.limpiarLista();
+        System.out.println();
+        System.out.println("Lista vacía");
+        l.remove(3);
+        l.visualizarNodos();
+        System.out.println();
+        System.out.println("Lista de un solo nodo, el nodo está");
+        l.add(1);
+        l.visualizarNodos();
+        l.remove(1);
+        l.visualizarNodos();
+        System.out.println();
+        System.out.println("Lista de un solo nodo, el nodo no está");
+        l.add(1);
+        l.visualizarNodos();
+        l.remove(5);
+        l.visualizarNodos();
+        System.out.println();
+        System.out.println("Lista de varios nodo, el nodo está");
+        l.add(1);
+        l.add(2);
+        l.visualizarNodos();
+        l.remove(2);
+        l.visualizarNodos();
+        System.out.println();
+        System.out.println("Lista de varios nodo, el nodo no está");
+        l.add(1);
+        l.add(2);
+        l.visualizarNodos();
+        l.remove(3);
         l.visualizarNodos();
     }
 
@@ -128,9 +224,18 @@ public class PruebaOrderedCircularLinkedList {
     public static void pruebaContains(OrderedCircularLinkedList<Integer> l) {
         System.out.println("************ Prueba contains ************");
         l.limpiarLista();
+        System.out.println();
+        System.out.println("Lista vacía");
+        l.visualizarNodos();
+        System.out.println("1? - " + l.contains(1));
+        System.out.println();
+        System.out.println("Lista de un elemento");
         l.add(1);
         l.visualizarNodos();
         System.out.println("1? - " + l.contains(1));
+        System.out.println("2? - " +l.contains(2));
+        System.out.println();
+        System.out.println("Lista de varios elementos");
         l.add(2);
         l.add(3);
         l.visualizarNodos();
@@ -141,9 +246,18 @@ public class PruebaOrderedCircularLinkedList {
     public static void pruebaFind(OrderedCircularLinkedList<Integer> l) {
         System.out.println("************ Prueba find ************");
         l.limpiarLista();
+        System.out.println();
+        System.out.println("Lista vacía");
+        l.visualizarNodos();
+        System.out.println("1? - " + l.find(1));
+        System.out.println();
+        System.out.println("Lista de un solo elemento");
         l.add(1);
         l.visualizarNodos();
         System.out.println("1? - " + l.find(1));
+        System.out.println("2? - " + l.find(3));
+        System.out.println();
+        System.out.println("Lista de varios elementos");
         l.add(2);
         l.add(3);
         l.visualizarNodos();
