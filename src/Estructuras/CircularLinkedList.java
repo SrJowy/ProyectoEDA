@@ -68,24 +68,30 @@ public class CircularLinkedList<T> implements ListADT<T>{
     @Override
     public T remove(T elem) {
         T elemEliminar = null;
-        Node <T> act = last.next;
-        Node <T> ant = last;
+        if (last != null) {
+            Node <T> act = last.next;
+            Node <T> ant = last;
 
-        while (act != last) {
-            if (act.data.equals(elem)) {
-                elemEliminar = act.data;
-                ant.next = act.next;
+            while (act != last) {
+                if (act.data.equals(elem)) {
+                    elemEliminar = act.data;
+                    ant.next = act.next;
+                    count--;
+                }
+                ant = act;
+                act = act.next;
             }
-            ant = act;
-            act = act.next;
-        }
-        if (elemEliminar == null) {
-            if (act.data.equals(elem)) {
-                last = ant;
-                ant.next = act.next;
+            if (elemEliminar == null && act.data.equals(elem)) {
+                if (size() > 1) {
+                    last = ant;
+                    ant.next = act.next;
+                } else {
+                    last = null;
+                }
+                count--;
             }
         }
-    
+        
         return elemEliminar;
 
     }
@@ -99,16 +105,7 @@ public class CircularLinkedList<T> implements ListADT<T>{
     }
 
     public boolean contains(T elem) {
-        T data;
-        boolean enc = false;
-        Iterator<T> itr = this.iterator();
-        while (itr.hasNext() && !enc){
-            data = itr.next();
-            if (data.equals(elem)) {
-                enc = true;
-            }
-        }
-        return enc;
+        return find(elem) != null;
     }
 
     public T find(T elem) {
