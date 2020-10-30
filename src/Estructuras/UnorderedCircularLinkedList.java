@@ -38,15 +38,24 @@ public class UnorderedCircularLinkedList<T> extends CircularLinkedList<T> implem
 		//pre: tiene que haber al menos un elemento en la lista
 		Node<T> nodo = new Node<T>(elem);
 		Node<T> act = last.next;
-		while (act.data != target) {
+		boolean inic = true;
+		boolean enc = false;
+		while (!enc && (act != last.next || inic)) {
+			inic = false;
 			act = act.next;
+			if (act.data.equals(target)) {
+				enc = true;
+			}
 		}
-		if (act.next == last.next) {
-			last = nodo;
+		if (enc) {
+			if (act.next == last.next) {
+				last = nodo;
+			}
+			nodo.next = act.next;
+			act.next = nodo;
+			count++;
 		}
-		nodo.next = act.next;
-		act.next = nodo;
-		count++;
+		
 	}
 
 }
