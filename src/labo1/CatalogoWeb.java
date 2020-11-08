@@ -25,36 +25,33 @@ public class CatalogoWeb {
         String archivoArc = "pld-arcs-1-N.txt";
 
         try{
-            cargaIndex(archivoIndex);
-            cargarArc(archivoArc);
-        } catch (IOException e) {e.printStackTrace();}
-    }
+            Scanner entrada1 = new Scanner(new FileReader(archivoIndex));
+            Scanner entrada2 = new Scanner(new FileReader(archivoArc));
 
-    public void cargaIndex(String s) throws IOException {
-        Scanner entrada = new Scanner(new FileReader(s));
-        String linea;
-        Web w;
-        while (entrada.hasNext()) {
-            linea = entrada.nextLine();
-            String[] datos = linea.split(" ");
-            w = new Web(Integer.parseInt(datos[1]),datos[0]);
-            this.l.anadirWeb(datos[0], w);
-            this.anadirAPalabra(datos[0], this.l.getWebLink(datos[0]));
-        }
-    }
+            String lineaIndex,lineaArc;
+            Web w;
+            int index;
 
-    public void cargarArc(String s) throws IOException{
-        Scanner entrada = new Scanner(new FileReader(s));
-        String linea;
-        while (entrada.hasNext()) {
-            linea = entrada.nextLine();
-            String[] packWeb = linea.split(" ");
-            Web w = this.l.getWebLink(packWeb[0]);
-            
-            for(int i = 2; i < packWeb.length; i++) {
-                w.anadirAListaWebs(this.l.getWebIndice(Integer.parseInt(packWeb[i])));
+            while (entrada1.hasNext()) {
+                lineaIndex = entrada1.nextLine();
+                String[] datos = lineaIndex.split(" ");
+                w = new Web(Integer.parseInt(datos[1]),datos[0]);
+                this.l.anadirWeb(datos[0], w);
+                this.anadirAPalabra(datos[0], w);
             }
-        }
+
+            while (entrada2.hasNext()) {
+                lineaArc = entrada2.nextLine();
+                String[] packWeb = lineaArc.split(" ");
+                index = Integer.parseInt(packWeb[0]);
+                Web w1 = this.l.getWebIndice(index);
+                
+                for(int i = 2; i < packWeb.length; i++) {
+                    w1.anadirAListaWebs(this.l.getWebIndice(Integer.parseInt(packWeb[i])));
+                }
+            }
+
+        } catch (IOException e) {e.printStackTrace();}
     }
 
     private void anadirAPalabra(String pLink, Web pWeb) {
