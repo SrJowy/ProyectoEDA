@@ -3,6 +3,8 @@ package labo1;
 import java.io.*;
 import java.util.*;
 
+import Estructuras.Graph;
+
 public class CatalogoWeb {
     private MapaWebs l;
     private static CatalogoWeb miCatalogoWeb = null;
@@ -18,6 +20,10 @@ public class CatalogoWeb {
         }
 
         return CatalogoWeb.miCatalogoWeb;
+    }
+
+    public void cargarGrafo(Graph g) {
+        g.crearGrafo(l.getArrayWebs());
     }
 
     public void cargarWebs() {
