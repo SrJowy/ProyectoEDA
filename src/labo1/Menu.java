@@ -1,4 +1,5 @@
 package labo1;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 import Estructuras.Graph;
@@ -22,6 +23,12 @@ public class Menu {
             System.out.println("");
         }
         System.out.println("/////////////////////////////////////////////////");
+    }
+
+    private void imprimirLinkedList(LinkedList<String> l) {
+        for(int i = 0; i<l.size();i++) {
+            System.out.println(l.get(i));
+        }
     }
 
     public void inicializarPrograma() {
@@ -169,8 +176,12 @@ public class Menu {
                         System.out.println("Escribe el link de otra web");
                         String s2 = reader.next();
                         System.out.println();
-                        if (g.estanConectados(s1, s2)) {
+                        LinkedList <String> l = g.estanConectados(s1, s2);
+                        if (!l.isEmpty()) {
                             System.out.println("Las webs están conectadas");
+                            System.out.println("<");
+                            imprimirLinkedList(l);
+                            System.out.println(">");
                         } else {
                             System.out.println("Las webs no están conectadas");
                         }

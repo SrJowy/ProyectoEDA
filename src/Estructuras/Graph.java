@@ -70,7 +70,7 @@ public class Graph {
         }
      }
 
-     public boolean estanConectados(String a1, String a2){
+     public LinkedList<String> estanConectados(String a1, String a2){
 		Queue<Integer> porExaminar = new LinkedList<Integer>();
 		
         int pos1 = tH.get(a1);
@@ -103,9 +103,8 @@ public class Graph {
                     examinados[elem] = true;
                 } 
             }
-            if (porExaminar.element() == pos2) {
-                enc = true;
-            } else {
+            if (porExaminar.element() == pos2) enc = true;
+            else {
                 porExaminar.remove();
                 if (!porExaminar.isEmpty())
                 pos1 = porExaminar.element();
@@ -116,23 +115,14 @@ public class Graph {
             int i = pos2;
             devolver.addFirst(keys[pos2]);
             while (!terminado) {
-                if (i == posInic){
-                    terminado = true;
-                }
+                if (i == posInic) terminado = true;
                 else {
                     devolver.addFirst(keys[camino[i]]);
                     i = camino[i];
                 }
-                
-            }
-            for (int j = 0; j<devolver.size(); j++) {
-                System.out.println(devolver.get(j));
             }
         }
         
-        
-        
-		
-        return enc;
+        return devolver;
     }
 }
