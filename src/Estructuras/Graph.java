@@ -21,7 +21,7 @@ public class Graph {
     
     public void crearGrafo(ArrayList<Web> lista) {
         anadirAlHashMap(lista);
-        llenarKeys(lista);
+        llenarKeys();
         llenarAdjList();
     }
 
@@ -39,7 +39,7 @@ public class Graph {
         //Coste O(n)
     }
 
-    private void llenarKeys(ArrayList<Web> l) {
+    private void llenarKeys() {
         keys = new String[tH.size()];
         for (String k: tH.keySet()) keys[tH.get(k)] = k;
         //n = número de elementos en el HashMap
