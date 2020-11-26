@@ -35,6 +35,7 @@ public class Menu {
         int n = -1;
         String url = " ";
         boolean carg = false;
+        boolean grafoC = false;
 
         while (n != 0) {
             System.out.println("");
@@ -50,6 +51,7 @@ public class Menu {
             System.out.println("9 - Cargar datos al grafo");
             System.out.println("10 - Buscar webs enlazadas");
             System.out.println("11 - Imprimir el grafo");
+            System.out.println("12 - Calcular un enlaces en un tiempo determinado");
             System.out.println("0 - Salir del programa");
             System.out.println("");
             System.out.println("Introduce un valor");
@@ -162,6 +164,7 @@ public class Menu {
                         System.out.println();
                         CatalogoWeb.getCatalogoWeb().cargarGrafo(g);
                         System.out.println("Se han cargado los datos al grafo");
+                        grafoC = true;
                     }
                     
                     break;
@@ -170,21 +173,25 @@ public class Menu {
                 case 10: {
                     if (!carg) System.out.println("Por favor, carga antes las webs");
                     else {
-                        System.out.println();
-                        System.out.println("Escribe el link de una web");
-                        String s1 = reader.next();
-                        System.out.println("Escribe el link de otra web");
-                        String s2 = reader.next();
-                        System.out.println();
-                        LinkedList <String> l = g.estanConectados(s1, s2);
-                        if (!l.isEmpty()) {
-                            System.out.println("Las webs están conectadas");
-                            System.out.println("<");
-                            imprimirLinkedList(l);
-                            System.out.println(">");
-                        } else {
-                            System.out.println("Las webs no están conectadas");
+                        if (!grafoC) System.out.println("Por favor, carga antes el grafo");
+                        else {
+                            System.out.println();
+                            System.out.println("Escribe el link de una web");
+                            String s1 = reader.next();
+                            System.out.println("Escribe el link de otra web");
+                            String s2 = reader.next();
+                            System.out.println();
+                            LinkedList <String> l = g.estanConectados(s1, s2);
+                            if (!l.isEmpty()) {
+                                System.out.println("Las webs están conectadas");
+                                System.out.println("<");
+                                imprimirLinkedList(l);
+                                System.out.println(">");
+                            } else {
+                                System.out.println("Las webs no están conectadas");
+                            }
                         }
+                        
                     }
                    
                     break;
@@ -193,12 +200,47 @@ public class Menu {
                 case 11: {
                     if (!carg) System.out.println("Por favor, carga antes las webs");
                     else {
-                        System.out.println();
-                        System.out.println("Imprimir grafo");
-                        g.print();
+                        if (!grafoC) System.out.println("Por favor, carga antes el grafo");
+                        else {
+                            System.out.println();
+                            System.out.println("Imprimir grafo");
+                            g.print();
+                        }
                     }
                     
                     break;
+                }
+
+                case 12: {
+                    if (!carg) System.out.println("Por favor, carga antes las webs");
+                    else {
+                        if (!grafoC) System.out.println("Por favor, carga antes el grafo");
+                        else {
+                            StopWatch s = new StopWatch();
+                        s.start();
+                        System.out.println("Introduce el tiempo en segundos");
+                        int time = reader.nextInt();
+                        int i = 0;
+                        int j = 0;
+                        String s1 = g.devolverKeys()[j];
+                        while(s.getElapsedTimeSecs() != time && j != g.devolverKeys().length) {
+                            String s2 = g.devolverKeys()[i];
+                            g.estanConectados(s1, s2);
+                            i++;
+                            if (i == g.devolverKeys().length)  {
+                                j++;
+                                s1 = g.devolverKeys()[j];
+                                i = 0;
+                            }
+                        }
+                        s.stop();
+                        System.out.println("Tiempo transcurrido" + s.getElapsedTimeSecs());
+                        System.out.println("Número de enlaces calculados = " + i);
+                        }
+                        
+                    }
+                    break;
+
                 }
 
                 case 0: break;    

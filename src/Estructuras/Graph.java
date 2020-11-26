@@ -18,6 +18,10 @@ public class Graph {
     public Graph() {
         tH = new HashMap<>();
     }
+
+    public String[] devolverKeys() {
+        return keys;
+    }
     
     public void crearGrafo(ArrayList<Web> lista) {
         anadirAlHashMap(lista);
@@ -35,30 +39,23 @@ public class Graph {
             this.tH.put(w.getLink(), i);
             i++;
         }
-        //n = número de elementos en el ArrayList l
-        //Coste O(n)
     }
 
     private void llenarKeys() {
         keys = new String[tH.size()];
         for (String k: tH.keySet()) keys[tH.get(k)] = k;
-        //n = número de elementos en el HashMap
-        //Coste O(n)
     }
 
     private void llenarAdjList() {
         adjList = new ArrayList[keys.length];
         for (int i=0; i<keys.length; i++) {
-            ListaWebs lW = CatalogoWeb.getCatalogoWeb().buscarWeb(keys[i]).getListaEnlazadas(); //Coste: O(1)
+            ListaWebs lW = CatalogoWeb.getCatalogoWeb().buscarWeb(keys[i]).getListaEnlazadas();
             ArrayList<Integer> l = new ArrayList<>();
             for (int j = 0; j<lW.getTamaino(); j++) {
-                l.add(tH.get(lW.getWebIndice(j).getLink())); //Coste O(1)
+                l.add(tH.get(lW.getWebIndice(j).getLink())); 
             }
             adjList[i] = l;
         }
-        //n = número de webs de ListaWebs
-        //m = número de elementos en la Lista de enlazadas de una web
-        //Coste: O(n*m/2)
     }
 
     public void print(){
