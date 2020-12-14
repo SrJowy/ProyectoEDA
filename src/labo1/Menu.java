@@ -243,6 +243,11 @@ public class Menu {
 
                 }
 
+                case 13: {
+                    g.calcularPR();
+                    g.imprimirPR();
+                }
+
                 case 0: break;    
             }
         }

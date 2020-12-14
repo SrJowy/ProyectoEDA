@@ -14,9 +14,11 @@ public class Graph {
     private HashMap<String,Integer> tH;
     private String[] keys;
     private ArrayList<Integer>[] adjList;
+    private HashMap<String,Double> pR;
 
     public Graph() {
         tH = new HashMap<>();
+        pR = new HashMap<>();
     }
 
     public String[] devolverKeys() {
@@ -125,13 +127,16 @@ public class Graph {
 
     public void calcularPR() {
         double[] pRAnt = new double[adjList.length];
-        double[] pRDes = new double[adjList.length];
-        for (double x: pRAnt) x = 1/adjList.length; //Coste: O(n)
+        System.out.println(1/pRAnt.length);
+        for (int i = 0; i<pRAnt.length;i++) pRAnt[i] = 1.0/pRAnt.length;  //Coste: O(n)
         double diff = 0.0;
         int iteracion = 0;
-        int ind = 0;
         double D = 0.85;
-        while (diff != 0.000001) {
+        double[] pRDes = new double[adjList.length];
+        while (diff > 0.0001) {
+            pRDes = new double[adjList.length];
+            diff = 0.0;
+            int ind = 0;
             iteracion++;
             for (ArrayList<Integer> x: adjList) {
                 double cant = pRAnt[ind]/x.size();
@@ -150,6 +155,16 @@ public class Graph {
                 diff += valor;
             }
             pRAnt = pRDes;
+        }
+        for (int i = 0; i<pRDes.length; i++) {
+            pR.put(keys[i], pRDes[i]);
+        }
+    }
+
+    public void imprimirPR() {
+        for (int i = 0; i<keys.length; i++) {
+            System.out.println(keys[i] + " --> ");
+            System.out.printf("%.5f",pR.get(keys[i]));
         }
     }
     
