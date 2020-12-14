@@ -122,4 +122,25 @@ public class Graph {
         
         return devolver;
     }
+
+    public ArrayList<Par> buscar (String palabraClave) {
+        int[] pRAnt = new int[adjList.length];
+        int[] pRDes = new int[adjList.length];
+        for (int x: pRAnt) x = 1/adjList.length; //Coste: O(n)
+        double diff = 0.0;
+        int iteracion = 0;
+        int ind = 0;
+        while (iteracion == 30) {
+            iteracion++;
+            for (ArrayList<Integer> x: adjList) {
+                int cant = pRAnt[ind]/x.size();
+                for (int i = 0; i<x.size(); i++) {
+                    pRDes[x.get(i)] += cant;
+                }
+                ind++;
+            }
+            pRAnt = pRDes;
+        }
+    }
+    
 }
