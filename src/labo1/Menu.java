@@ -36,6 +36,7 @@ public class Menu {
         String url = " ";
         boolean carg = false;
         boolean grafoC = false;
+        boolean pr = false;
 
         while (n != 0) {
             System.out.println("");
@@ -52,6 +53,7 @@ public class Menu {
             System.out.println("10 - Buscar webs enlazadas");
             System.out.println("11 - Imprimir el grafo");
             System.out.println("12 - Calcular un enlaces en un tiempo determinado");
+            System.out.println("13 - Calcular el Page Rank");
             System.out.println("0 - Salir del programa");
             System.out.println("");
             System.out.println("Introduce un valor");
@@ -217,22 +219,22 @@ public class Menu {
                         if (!grafoC) System.out.println("Por favor, carga antes el grafo");
                         else {
                             StopWatch s = new StopWatch();
-                        s.start();
-                        System.out.println("Introduce el tiempo en segundos");
-                        int time = reader.nextInt();
-                        int i = 0;
-                        int j = 0;
-                        String s1 = g.devolverKeys()[j];
-                        while(s.getElapsedTimeSecs() != time && j != g.devolverKeys().length) {
-                            String s2 = g.devolverKeys()[i];
-                            g.estanConectados(s1, s2);
-                            i++;
-                            if (i == g.devolverKeys().length)  {
-                                j++;
-                                s1 = g.devolverKeys()[j];
-                                i = 0;
+                            s.start();
+                            System.out.println("Introduce el tiempo en segundos");
+                            int time = reader.nextInt();
+                            int i = 0;
+                            int j = 0;
+                            String s1 = g.devolverKeys()[j];
+                            while(s.getElapsedTimeSecs() != time && j != g.devolverKeys().length) {
+                                String s2 = g.devolverKeys()[i];
+                                g.estanConectados(s1, s2);
+                                i++;
+                                if (i == g.devolverKeys().length)  {
+                                    j++;
+                                    s1 = g.devolverKeys()[j];
+                                    i = 0;
+                                }
                             }
-                        }
                         s.stop();
                         System.out.println("Tiempo transcurrido" + s.getElapsedTimeSecs());
                         System.out.println("Número de enlaces calculados = " + i);
@@ -244,8 +246,18 @@ public class Menu {
                 }
 
                 case 13: {
-                    g.calcularPR();
-                    g.imprimirPR();
+                    if (!carg) System.out.println("Por favor, carga antes las webs");
+                    else {
+                        if (!grafoC) System.out.println("Por favor, carga antes el grafo");
+                        else {
+                            System.out.println("Se va a proceder a calcular el Page Rank");
+                            g.calcularPR();
+                            System.out.println();
+                            System.out.println("Acción completada");
+                            pr = true;
+                        }
+                    }
+                    break;
                 }
 
                 case 0: break;    

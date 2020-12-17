@@ -25,7 +25,7 @@ public class CatalogoPalabras {
 
     public void cargarPalabras() {
         //post: carga las palabras del archivo words.txt
-        String archivo = "words.txt" ;
+        String archivo = "C:/Users/joelb/OneDrive/Escritorio/workspace/labo2/words.txt" ;
 
         try{
             Scanner entrada = new Scanner(new FileReader(archivo));

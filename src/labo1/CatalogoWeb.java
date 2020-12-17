@@ -27,8 +27,8 @@ public class CatalogoWeb {
     }
 
     public void cargarWebs() {
-        String archivoIndex = "index.txt";
-        String archivoArc = "pld-arcs-1-N.txt";
+        String archivoIndex = "C:/Users/joelb/OneDrive/Escritorio/workspace/labo2/index.txt";
+        String archivoArc = "C:/Users/joelb/OneDrive/Escritorio/workspace/labo2/pld-arcs-1-N.txt";
 
         try{
             Scanner entrada1 = new Scanner(new FileReader(archivoIndex));

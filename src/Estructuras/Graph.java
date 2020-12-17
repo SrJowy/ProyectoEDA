@@ -6,8 +6,11 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import labo1.CatalogoPalabras;
 import labo1.CatalogoWeb;
+import labo1.ListaPalabras;
 import labo1.ListaWebs;
+import labo1.Palabra;
 import labo1.Web;
 
 public class Graph {
@@ -126,15 +129,14 @@ public class Graph {
     }
 
     public void calcularPR() {
-        double[] pRAnt = new double[adjList.length];
-        System.out.println(1/pRAnt.length);
-        for (int i = 0; i<pRAnt.length;i++) pRAnt[i] = 1.0/pRAnt.length;  //Coste: O(n)
-        double diff = 0.0;
+        double[] pRAnt = new double[keys.length];
+        for (int i = 0; i<pRAnt.length;i++) pRAnt[i] = 1.0/keys.length;  //Coste: O(n)
+        double diff = 1.0;
         int iteracion = 0;
         double D = 0.85;
-        double[] pRDes = new double[adjList.length];
+        double[] pRDes = new double[keys.length];
         while (diff > 0.0001) {
-            pRDes = new double[adjList.length];
+            pRDes = new double[keys.length];
             diff = 0.0;
             int ind = 0;
             iteracion++;
@@ -145,8 +147,8 @@ public class Graph {
                 }
                 ind++;
             }
-            for (double y: pRDes) {
-                y = y * D + ((1-D)/adjList.length);
+            for (int y = 0; y<pRDes.length; y++) {
+                pRDes[y] = pRDes[y] * D + ((1-D)/keys.length);
             }
 
             for (int i = 0; i<pRAnt.length; i++) {
@@ -155,17 +157,97 @@ public class Graph {
                 diff += valor;
             }
             pRAnt = pRDes;
+            System.out.println(iteracion);
         }
         for (int i = 0; i<pRDes.length; i++) {
             pR.put(keys[i], pRDes[i]);
+        } 
+    }
+
+    public ArrayList<Par> buscar(String p) {
+        UnorderedCircularLinkedList<Web> l = CatalogoPalabras.getCatalogoPalabras().getPalabra(p).getListaWebs();
+        Iterator<Web> itr = l.iterator();
+        ArrayList<Par> lista = new ArrayList<>();
+        while (itr.hasNext()) {
+            Web w = itr.next();
+            Par par = new Par(w.getLink(),pR.get(w.getLink()));
+            lista.add(par);
         }
+        lista = mergeSort(lista);
+        return lista; 
+    }
+
+    public ArrayList<Par> buscar(String p1, String p2) { /***************************************************/
+        UnorderedCircularLinkedList<Web> l = CatalogoPalabras.getCatalogoPalabras().getPalabra(p1).getListaWebs();
+        Iterator<Web> itr = l.iterator();
+        ArrayList<Par> lista = new ArrayList<>();
+        while (itr.hasNext()) {
+            Web w = itr.next();
+            Par par = new Par(w.getLink(),pR.get(w.getLink()));
+            lista.add(par);
+        }
+        lista = mergeSort(lista);
+        return lista; 
     }
 
     public void imprimirPR() {
         for (int i = 0; i<keys.length; i++) {
-            System.out.println(keys[i] + " --> ");
-            System.out.printf("%.5f",pR.get(keys[i]));
+            System.out.println();
+            System.out.printf(keys[i] + " --> "+ "%.8f",pR.get(keys[i]));
         }
+    }
+
+    private void mezcla(ArrayList<Par> izq, ArrayList<Par> der, ArrayList<Par> l) {
+        int izqInd = 0;
+        int derInd = 0;
+        int lInd = 0;
+
+        while (izqInd < izq.size() && derInd < der.size()) {
+            if ((izq.get(izqInd).getPageRank().compareTo(der.get(derInd).getPageRank())) < 0) {
+                l.set(lInd, izq.get(izqInd));
+                izqInd++;
+            } else {
+                l.set(lInd, der.get(derInd));
+                derInd++;
+            }
+            lInd++;
+        }
+ 
+        ArrayList<Par> resto;
+        int restoInd;
+        if (izqInd >= izq.size()) {
+            resto = der;
+            restoInd = derInd;
+        } else {
+            resto = izq;
+            restoInd = izqInd;
+        }
+        for (int i=restoInd; i<resto.size(); i++) {
+            l.set(lInd, resto.get(i));
+            lInd++;
+        }
+    }
+
+    private ArrayList<Par> mergeSort(ArrayList<Par> l) {
+       
+        ArrayList<Par> izq = new ArrayList<Par>();
+        ArrayList<Par> der = new ArrayList<Par>();
+        int cent;
+        if (l.size() == 1) {
+            return l;
+        } else {
+            cent = l.size()/2;
+            for (int i=0; i<cent; i++) {
+                    izq.add(l.get(i));
+            }
+            for (int i=cent; i<l.size(); i++) {
+                    der.add(l.get(i));
+            }
+            izq  = mergeSort(izq);
+            der = mergeSort(der);
+            mezcla(izq, der, l);
+        } 
+        return l;
     }
     
 }
