@@ -1,8 +1,11 @@
 package labo1;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
 
 import Estructuras.Graph;
+import Estructuras.Par;
 import Estructuras.UnorderedCircularLinkedList;
 
 
@@ -54,6 +57,8 @@ public class Menu {
             System.out.println("11 - Imprimir el grafo");
             System.out.println("12 - Calcular un enlaces en un tiempo determinado");
             System.out.println("13 - Calcular el Page Rank");
+            System.out.println("14 - Lista ordenada dada una palabra");
+            System.out.println("15 - Lista ordenada dada dos palabras");
             System.out.println("0 - Salir del programa");
             System.out.println("");
             System.out.println("Introduce un valor");
@@ -258,6 +263,51 @@ public class Menu {
                         }
                     }
                     break;
+                }
+
+                case 14: {
+                    if (!carg) System.out.println("Por favor, carga antes las webs");
+                    else {
+                        if (!grafoC) System.out.println("Por favor, carga antes el grafo");
+                        else {
+                            if (!pr) System.out.println("Por favor, calcula el Page Rank antes");
+                            else {
+                                System.out.println("Introduce una palabra");
+                                System.out.printf("--> ");
+                                String palabra = reader.next();
+                                System.out.println();
+                                ArrayList<Par> l = g.buscar(palabra);
+                                System.out.println("///////////Lista///////////");
+                                g.imprimirListaPares(l);
+                                System.out.println("///////////////////////////");
+                            }
+                        }
+                    }
+                    break; 
+                }
+
+                case 15: {
+                    if (!carg) System.out.println("Por favor, carga antes las webs");
+                    else {
+                        if (!grafoC) System.out.println("Por favor, carga antes el grafo");
+                        else {
+                            if (!pr) System.out.println("Por favor, calcula el Page Rank antes");
+                            else {
+                                System.out.println("Introduce una palabra");
+                                System.out.printf("--> ");
+                                String p1 = reader.next();
+                                System.out.println("Introduce una palabra");
+                                System.out.printf("--> ");
+                                String p2 = reader.next();
+                                System.out.println();
+                                ArrayList<Par> l = g.buscar(p1,p2);
+                                System.out.println("///////////Lista///////////");
+                                g.imprimirListaPares(l);
+                                System.out.println("///////////////////////////");
+                            }
+                        }
+                    }
+                    break; 
                 }
 
                 case 0: break;    

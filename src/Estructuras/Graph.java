@@ -183,11 +183,20 @@ public class Graph {
         ArrayList<Par> lista = new ArrayList<>();
         while (itr.hasNext()) {
             Web w = itr.next();
-            Par par = new Par(w.getLink(),pR.get(w.getLink()));
-            lista.add(par);
+            if (w.getListaPalabras().esta(CatalogoPalabras.getCatalogoPalabras().getPalabra(p2))) {
+                Par par = new Par(w.getLink(),pR.get(w.getLink()));
+                lista.add(par);
+            }
         }
         lista = mergeSort(lista);
         return lista; 
+    }
+
+    public void imprimirListaPares(ArrayList<Par> l) {
+        for (int i = 0; i<l.size(); i++){
+            System.out.printf(l.get(i).getWeb() + " --> " + "%.8f",l.get(i).getPageRank());
+            System.out.println();
+        } 
     }
 
     public void imprimirPR() {
@@ -203,7 +212,7 @@ public class Graph {
         int lInd = 0;
 
         while (izqInd < izq.size() && derInd < der.size()) {
-            if ((izq.get(izqInd).getPageRank().compareTo(der.get(derInd).getPageRank())) < 0) {
+            if ((izq.get(izqInd).getPageRank().compareTo(der.get(derInd).getPageRank())) > 0) {
                 l.set(lInd, izq.get(izqInd));
                 izqInd++;
             } else {

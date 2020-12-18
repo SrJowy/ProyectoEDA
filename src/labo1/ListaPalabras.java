@@ -19,4 +19,15 @@ public class ListaPalabras {
         }
     }
 
+    public boolean esta(Palabra p) {
+        int i = 0;
+        boolean enc = false;
+        while (i < lP.size() && !enc) {
+            if (lP.get(i).equals(p)) enc = true;
+            else i++;
+        }
+
+        return enc;
+    }
+
 }
