@@ -8,9 +8,7 @@ import java.util.Queue;
 
 import labo1.CatalogoPalabras;
 import labo1.CatalogoWeb;
-import labo1.ListaPalabras;
 import labo1.ListaWebs;
-import labo1.Palabra;
 import labo1.Web;
 
 public class Graph {
@@ -177,7 +175,7 @@ public class Graph {
         return lista; 
     }
 
-    public ArrayList<Par> buscar(String p1, String p2) { /***************************************************/
+    public ArrayList<Par> buscar(String p1, String p2) { 
         UnorderedCircularLinkedList<Web> l = CatalogoPalabras.getCatalogoPalabras().getPalabra(p1).getListaWebs();
         Iterator<Web> itr = l.iterator();
         ArrayList<Par> lista = new ArrayList<>();
